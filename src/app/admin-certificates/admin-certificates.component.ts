@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class AdminCertificatesComponent {
    itemCount: number = 0;
+   selectedId?: string = '';
    btnTxt: string = "Agregar";
    certificates: Certificates[] = [];
    myCertificates: Certificates = new Certificates();
@@ -28,12 +29,22 @@ export class AdminCertificatesComponent {
         });
     }
 
-  AgregarCertificates(){
-    console.log(this.certificatesService);
+    AgregarCertificates() {
+  if (this.selectedId) {
+    // Modo actualizar
+    this.certificatesService.updateCertificates(this.selectedId, this.myCertificates).then(() => {
+      console.log('Updated certificate successfully!');
+      this.resetForm();
+    });
+  } else {
+    // Modo agregar
     this.certificatesService.createCertificates(this.myCertificates).then(() => {
-       console.log('Created new item successfully!');
+      console.log('Created new certificate successfully!');
+      this.resetForm();
     });
   }
+}
+
 
   deleteCertificates(id? :string){
     this.certificatesService.deleteCertificates(id).then(() => {
@@ -42,7 +53,18 @@ export class AdminCertificatesComponent {
     console.log(id);
   }
 
-  updateCertificates(id? :string){
-    alert('updating...');
+  updateCertificates(id?: string) {
+  const certToEdit = this.certificates.find(c => c.id === id);
+  if (certToEdit) {
+    this.myCertificates = { ...certToEdit };
+    this.selectedId = id;
+    this.btnTxt = "Save";
   }
+}
+resetForm() {
+  this.myCertificates = new Certificates();
+  this.selectedId = '';
+  this.btnTxt = "Agregar";
+}
+
 }

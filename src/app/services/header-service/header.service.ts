@@ -20,4 +20,8 @@ export class HeaderService {
   deleteHeader(id? : string): Promise<void> {
       return this.headerRef.doc(id).delete();
   }
+  updateHeader(id: string, data: Header): Promise<void> {
+  return this.headerRef.doc(id).update(data);
+}
+
 }

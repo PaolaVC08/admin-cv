@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrl: './admin-skills.component.css'
 })
 export class AdminSkillsComponent {
+	selectedId?: string = '';
 	itemCount: number =0;
 	btnTxt: string = "Add";
 	goalText: string = "";
@@ -31,11 +32,21 @@ export class AdminSkillsComponent {
 	      });
 	}
 
-	agregarSkill(){
-	  console.log(this.mySkill);
-	  this.skillsService.createSkills(this.mySkill).then(()=> {
-	   console.log('Created new item successfully!');
-	  });
+
+	agregarSkill() {
+	  if (this.selectedId) {
+	    // Modo actualizar
+	    this.skillsService.updateSkills(this.selectedId, this.mySkill).then(() => {
+	      console.log('Updated skill successfully!');
+	      this.resetForm();
+	    });
+	  } else {
+	    // Modo agregar
+	    this.skillsService.createSkills(this.mySkill).then(() => {
+	      console.log('Created new skill successfully!');
+	      this.resetForm();
+	    });
+	  }
 	}
 
 	deleteSkill(id? :string){
@@ -44,8 +55,20 @@ export class AdminSkillsComponent {
 	  });
 	   console.log(id);
 	}
-
-	updateSkill(id? :string){
-	alert('actualizando Skill');
+	
+	updateSkill(id?: string) {
+	  const skillToEdit = this.skills.find(s => s.id === id);
+ 	   if (skillToEdit) {
+    	     this.mySkill = { ...skillToEdit }; // clona los datos al formulario
+    		this.selectedId = id;
+    		this.btnTxt = "Save";
+ 	 }
 	}
+
+	resetForm() {
+	  this.mySkill = new Skills();
+	  this.selectedId = '';
+	  this.btnTxt = "Add";
+	}
+
 }

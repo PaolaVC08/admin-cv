@@ -13,6 +13,7 @@ export class AdminEducationComponent {
   itemCount: number =0;
   btnTxt: string = "Agregar";
   education: Education[] = [];
+  selectedId?: string = '';
   myEducation: Education = new Education();
 
   constructor(public educationService: EducationService)
@@ -30,12 +31,19 @@ export class AdminEducationComponent {
               });
         }
 
-  agregarEducation(){
-    console.log(this.myEducation);
-    this.educationService.createEducation(this.myEducation).then(()=>{
-      console.log('Create new item successfully!');
+agregarEducation() {
+  if (this.selectedId) {
+    this.educationService.updateEducation(this.selectedId, this.myEducation).then(() => {
+      console.log('Updated education successfully!');
+      this.resetForm();
+    });
+  } else {
+    this.educationService.createEducation(this.myEducation).then(() => {
+      console.log('Created new education successfully!');
+      this.resetForm();
     });
   }
+}
 
   deleteEducation(id? :string){
     this.educationService.deleteEducation(id).then(()=>{
@@ -44,8 +52,18 @@ export class AdminEducationComponent {
     	console.log(id);
   }
 
-  updateEducation(id? : string){
-  alert('actualizando Educacion');
+  updateEducation(id?: string) {
+  const eduToEdit = this.education.find(e => e.id === id);
+  if (eduToEdit) {
+    this.myEducation = { ...eduToEdit };
+    this.selectedId = id;
+    this.btnTxt = "Save";
   }
+}
+resetForm() {
+  this.myEducation = new Education();
+  this.selectedId = '';
+  this.btnTxt = "Agregar";
+}
 
 }

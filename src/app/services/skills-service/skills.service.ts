@@ -26,4 +26,8 @@ export class SkillsService {
     return this.skillsRef.doc(id).delete();
   }
 
+  updateSkills(id: string, data: Skills): Promise<void> {
+    return this.skillsRef.doc(id).update(data);
+  }
+
 }

@@ -27,4 +27,8 @@ export class LanguagesService {
     return this.languagesRef.doc(id).delete();
   }
 
+  updateLanguage(id: string, data: Languages): Promise<void> {
+  return this.languagesRef.doc(id).update(data);
+}
+
 }

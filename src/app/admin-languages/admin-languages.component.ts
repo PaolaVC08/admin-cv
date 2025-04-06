@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class AdminLanguagesComponent {
   itemCount: number =0;
+  selectedId?: string = '';
   btnTxt: string ="Add";
   languages: Languages[] =[];
   myLanguage: Languages = new Languages();
@@ -29,12 +30,22 @@ export class AdminLanguagesComponent {
 	      });
         }
 
-  agregarLanguage(){
-    console.log(this.myLanguage);
-    this.languagesService.createLanguage(this.myLanguage).then(()=> {
-      console.log('Created new item successfully!');
+  agregarLanguage() {
+  if (this.selectedId) {
+    // Modo actualizar
+    this.languagesService.updateLanguage(this.selectedId, this.myLanguage).then(() => {
+      console.log('Updated language successfully!');
+      this.resetForm();
+    });
+  } else {
+    // Modo agregar
+    this.languagesService.createLanguage(this.myLanguage).then(() => {
+      console.log('Created new language successfully!');
+      this.resetForm();
     });
   }
+}
+
 
   deleteLanguage(id? :string){
     this.languagesService.deleteLanguage(id).then(()=> {
@@ -42,7 +53,20 @@ export class AdminLanguagesComponent {
     });
       console.log(id);
   }
-  updateLanguage(id? :string){
-  alert('actualizando Lenguaje');
+  updateLanguage(id?: string) {
+  const languageToEdit = this.languages.find(lang => lang.id === id);
+  if (languageToEdit) {
+    this.myLanguage = { ...languageToEdit }; // clona los datos
+    this.selectedId = id;
+    this.btnTxt = "Save";
   }
+}
+
+resetForm() {
+  this.myLanguage = new Languages();
+  this.selectedId = '';
+  this.btnTxt = "Add";
+}
+
+
 }
