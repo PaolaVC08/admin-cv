@@ -24,6 +24,8 @@
         <p class="life-container" *ngFor="let edu of education;">
 
             <input type="submit" class="btn" value="delete" (click)="deleteEducation(edu.id)">
+	    <input type="submit" class="btn" value="update" (click)="updateEducation(edu.id)">
+
             {{edu.name}} – {{edu.school}}
         </p>
 

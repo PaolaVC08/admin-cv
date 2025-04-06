@@ -42,4 +42,8 @@ export class AdminHeaderComponent {
     console.log(id);
   }
 
+  updateHeader(id? :string){
+  alert('Actualizando header'); 
+  }
+
 }

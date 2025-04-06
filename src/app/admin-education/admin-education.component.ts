@@ -44,4 +44,8 @@ export class AdminEducationComponent {
     	console.log(id);
   }
 
+  updateEducation(id? : string){
+  alert('actualizando Educacion');
+  }
+
 }

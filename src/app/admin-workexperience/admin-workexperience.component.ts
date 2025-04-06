@@ -44,4 +44,8 @@ export class AdminWorkexperienceComponent {
     });
     console.log(id);
   }
+
+  updateJob(id? :string){
+  	alert('updating ..' + id);
+  }
 }

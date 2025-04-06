@@ -42,4 +42,7 @@ export class AdminLanguagesComponent {
     });
       console.log(id);
   }
+  updateLanguage(id? :string){
+  alert('actualizando Lenguaje');
+  }
 }

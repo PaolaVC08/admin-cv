@@ -44,4 +44,8 @@ export class AdminSkillsComponent {
 	  });
 	   console.log(id);
 	}
+
+	updateSkill(id? :string){
+	alert('actualizando Skill');
+	}
 }
