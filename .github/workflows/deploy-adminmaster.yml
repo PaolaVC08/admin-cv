@@ -1,8 +1,7 @@
 name: CI/CD deploy admin-master
-on:
-# prueba2
- # push:
-#   branches: [ "master"]
+on: 
+  #push:
+    #branches: [ "deploy-release"]
   pull_request:
     branches: [ "master"]
 jobs:
@@ -12,33 +11,30 @@ jobs:
       # Give the default GITHUB_TOKEN write permission to commit and push the
       # added or changed files to the repository.
       contents: write
-
     steps:
-      - run: ls -la
       - uses: actions/checkout@v2
-      - run: ls -la
-      
-      - run: echo ‘hello ann’
+      - run: echo ‘hello world’
       - name: Use Node.js 20.x
         uses: actions/setup-node@v1
         with:
           node-version: 20.x
-
       - name: install dependencies 
         run: npm ci
 
       - name: build setup
         run: npm run build
-        
+
       - name: list dir
         run: ls -la dist/admin-cv/browser
-        
+
       - name: build angular, output in dist/admin-cv
         run: |
-          CI=false npm run build 
-      - name: show dir 
+          CI=false npm run build
+      
+      - name: show dir
         run: |
           ls -la dist/admin-cv/browser
+      
       - name: download, run httpd image, container name serving_base
         run: |
           docker run -d --name serving_base httpd
@@ -47,15 +43,17 @@ jobs:
         run: | 
           docker ps
 
-      - name: cp angular build to container 
+      - name: cp angular build to container
         run: |
-          docker cp dist/admin-cv/browser/. serving_base:/usr/local/apache2/htdocs
-
-      - name: list container 
-        run: | 
+          docker cp dist/admin-cv/browser/.  serving_base:/usr/local/apache2/htdocs
+          
+      - name: list container
+        run: |
           docker exec serving_base ls -la /usr/local/apache2/htdocs
+
+      
       - name: Build the custom Docker image 
-        run: docker commit --change "ENV MODEL_NAME ${{ secrets.MODEL_NAME}}"
+        run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}"
              serving_base ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}}
 
       - name: show docker images 
