@@ -21,13 +21,15 @@
     </div>
 
     <div class="col">
-        <p class="life-container" *ngFor="let edu of education;">
+	<div class="record-card" *ngFor="let edu of education">
+	  <p><strong>{{ edu.name }}</strong> – {{ edu.school }}</p>
+	  <p>{{ edu.startDate }} – {{ edu.endDate }}</p>
 
-            <input type="submit" class="btn" value="delete" (click)="deleteEducation(edu.id)">
-	    <input type="submit" class="btn" value="update" (click)="updateEducation(edu.id)">
-
-            {{edu.name}} – {{edu.school}}
-        </p>
+	  <div class="record-buttons">
+	    <button (click)="updateEducation(edu.id)">Update</button>
+	    <button (click)="deleteEducation(edu.id)">Delete</button>
+	  </div>
+	</div>
 
     </div>
 

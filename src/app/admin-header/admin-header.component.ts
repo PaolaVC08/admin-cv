@@ -14,6 +14,7 @@ export class AdminHeaderComponent {
   header: Header[] = [];
   myHeader: Header = new Header();
   selectedId?: string = '';
+  canAddHeader: boolean = true;
 
   constructor(public headerService: HeaderService) {
     this.headerService.getHeader().snapshotChanges().pipe(
@@ -24,6 +25,7 @@ export class AdminHeaderComponent {
       )
     ).subscribe(data => {
       this.header = data;
+      this.canAddHeader = this.header.length === 0;
     });
   }
 

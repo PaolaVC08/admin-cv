@@ -18,12 +18,14 @@
     </div>
 
     <div class="col">
-        <p class="life-container" *ngFor="let language of languages;">
-	    <input type="submit" class="btn" value="update" (click)="updateLanguage(language.id)">  
-            <input type="submit" class="btn" value="Delete" (click)="deleteLanguage(language.id)">
-            {{language.language}}
-        </p>
+	    <div class="record-card" *ngFor="let language of languages">
+	      <h3>{{ language.language }}</h3>
 
+	      <div class="record-buttons">
+	        <button (click)="updateLanguage(language.id)">Update</button>
+	        <button (click)="deleteLanguage(language.id)">Delete</button>
+	      </div>
+	    </div>
     </div>
 
 </div>

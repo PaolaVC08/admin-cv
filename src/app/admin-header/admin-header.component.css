@@ -1,0 +1,8 @@
+.btn:disabled {
+  background-color: #ccc; /* Gris claro */
+  color: #666; /* Texto gris oscuro */
+  cursor: not-allowed;
+  border: none;
+  opacity: 0.7;
+}
+

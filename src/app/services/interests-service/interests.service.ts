@@ -20,5 +20,7 @@ export class InterestsService{
   deleteInterests(id? : string): Promise<void> {
       return this.interestsRef.doc(id).delete();
   }
-
+updateInterests(id: string, data: Interests): Promise<void> {
+  return this.interestsRef.doc(id).update(data);
+}
 }

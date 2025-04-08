@@ -24,12 +24,16 @@
     </div>
 
     <div class="col">
-        <p class="life-container" *ngFor="let job of workExperience;">
+	<div class="record-card" *ngFor="let job of workExperience">
+  <p><strong>{{ job.company }}</strong> – {{ job.position }}</p>
+  <p>{{ job.location }} | {{ job.startDate }} – {{ job.endDate }}</p>
+  <p>{{ job.accomplishment }}</p>
 
-        <input type="submit" class="btn" value="update" (click)="updateJob(job.id)">    
-	<input type="submit" class="btn" value="delete" (click)="deleteJob(job.id)">
-            {{job.company}} – {{job.position}}
-        </p>
+  <div class="record-buttons">
+    <button (click)="updateJob(job.id)">Update</button>
+    <button (click)="deleteJob(job.id)">Delete</button>
+  </div>
+</div>
 
     </div>
 
