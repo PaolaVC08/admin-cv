@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin-cv';
+    activeLink = '';
+
+  setActiveLink(link: string) {
+    this.activeLink = link;
+  }
 }
