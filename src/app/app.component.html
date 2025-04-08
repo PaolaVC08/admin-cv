@@ -1,22 +1,15 @@
 <h3> <b> adminCv App </b> </h3>
   <nav>
-	  <ul>
-		  <li> <a routerLink="/header"> header </a>
-		  </li>
-		  <li> <a routerLink="/workexperience"> work-experience </a>
-                  </li>
-		  <li> <a routerLink="/education"> education </a>
-                  </li>
-                  <li> <a routerLink="/certificates"> certificates </a>
-                  </li>
-                  <li> <a routerLink="/skills"> skills </a>
-                  </li>
-                  <li> <a routerLink="/languages"> languages </a>
-                  </li>
-		  <li> <a routerLink="/interests"> interests </a>
-                  </li>
+	<ul>
+	  <li> <a routerLink="/header" (click)="setActiveLink('header')" [class.active]="activeLink === 'header'"> header </a></li>
+	  <li> <a routerLink="/workexperience" (click)="setActiveLink('workexperience')" [class.active]="activeLink === 'workexperience'"> work-experience </a></li>
+	  <li> <a routerLink="/education" (click)="setActiveLink('education')" [class.active]="activeLink === 'education'"> education </a></li>
+	  <li> <a routerLink="/certificates" (click)="setActiveLink('certificates')" [class.active]="activeLink === 'certificates'"> certificates </a></li>
+	  <li> <a routerLink="/skills" (click)="setActiveLink('skills')" [class.active]="activeLink === 'skills'"> skills </a></li>
+	  <li> <a routerLink="/languages" (click)="setActiveLink('languages')" [class.active]="activeLink === 'languages'"> languages </a></li>
+	  <li> <a routerLink="/interests" (click)="setActiveLink('interests')" [class.active]="activeLink === 'interests'"> interests </a></li>
+	</ul>
 
-	  </ul>
   </nav>
 
   <router-outlet></router-outlet>
