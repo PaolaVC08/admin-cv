@@ -1,23 +1,155 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=REleway:300,700');
-body{
-	background: #009999;
-	padding: 3em;
-	font-family: 'Relaway', 'Arial';
-	color: #fff;}
+
+:root {
+  --morado-claro: #d1b3ff;
+  --morado-fuerte: #6a0dad;
+  --gris-claro: #f5f5f5;
+  --sombra-suave: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background: #ffffff;
+  padding: 3em;
+  font-family: 'Relaway', 'Arial';
+  color: #333;
+}
+
+/* Navegación */
 ul {
-list-style-type: none;
-margin: 0 0 2em 0;
-padding: 0;
+  list-style-type: none;
+  margin: 0 0 2em 0;
+  padding: 0;
 }
-ul li{
-	display: inline;
-	margin-right: 30px;
+ul li {
+  display: inline;
+  margin-right: 30px;
 }
-ul li a{
-	font-size: 1.5em;
+ul li a {
+  font-size: 1.5em;
 }
-a{
-	color: #fff;
-	text-decoration: none;
+a {
+  color: var(--morado-fuerte);
+  text-decoration: none;
 }
+
+/* Formularios en tarjetas */
+form {
+  background-color: var(--gris-claro);
+  padding: 2em;
+  border-radius: 15px;
+  box-shadow: var(--sombra-suave);
+  max-width: 600px;
+  margin: 0 auto 2em auto;
+}
+
+/* Inputs, selects, textareas */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+/* Botones */
+button, input[type="submit"] {
+  background-color: var(--morado-fuerte);
+  color: white;
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+button:hover, input[type="submit"]:hover {
+  background-color: var(--morado-claro);
+  color: #000;
+}
+
+/* Listado tipo tarjetas (como Facebook) */
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  justify-content: center;
+}
+.card-item {
+  background-color: var(--gris-claro);
+  padding: 1.5em;
+  border-radius: 15px;
+  box-shadow: var(--sombra-suave);
+  width: 300px;
+  word-wrap: break-word;
+}
+.card-item h3 {
+  color: var(--morado-fuerte);
+  margin-bottom: 0.5em;
+}
+.card-item p {
+  color: #333;
+}
+/* Estilo para cada registro listado */
+.record-card {
+  background-color: var(--gris-claro);
+  padding: 1em 1.5em;
+  border-radius: 15px;
+  box-shadow: var(--sombra-suave);
+  margin-bottom: 1em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenedor para los botones dentro de cada tarjeta */
+.record-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+/* Botones más pequeños */
+.record-buttons button {
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  border-radius: 8px;
+}
+/* Estilo para tarjetas tipo perfil (imagen + datos al lado) */
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5em;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--sombra-suave);
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+ul li a {
+  font-size: 1.5em;
+  padding-bottom: 5px; /* Espacio debajo del texto */
+  transition: border-bottom 0.3s ease; /* Transición suave */
+}
+
+ul li a:hover, ul li a.active {
+  border-bottom: 3px solid var(--morado-fuerte); /* Barra debajo */
+}
+

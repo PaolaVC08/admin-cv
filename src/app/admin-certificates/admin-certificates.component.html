@@ -20,13 +20,15 @@
     </div>
 
     <div class="col">
-       <p class="life-container" *ngFor="let certificates of certificates;">
-          <input type="submit" class="btn" value="update" (click)="updateCertificates(certificates.id)">
-          <input type="submit" class="btn" value="delete" (click)="deleteCertificates(certificates.id)">
-          {{certificates.title}} – <i>({{certificates.year}})
-              {{certificates.description}}</i>
-       </p>
+	<div class="record-card" *ngFor="let certificate of certificates">
+	      <h3>{{ certificate.title }} ({{ certificate.year }})</h3>
+	      <p>{{ certificate.description }}</p>
 
+	      <div class="record-buttons">
+	        <button (click)="updateCertificates(certificate.id)">Update</button>
+	        <button (click)="deleteCertificates(certificate.id)">Delete</button>
+	      </div>
+	</div>
     </div>
 
 </div>

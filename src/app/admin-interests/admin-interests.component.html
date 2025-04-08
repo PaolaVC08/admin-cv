@@ -1,1 +1,27 @@
-<p>admin-interests works!</p>
+<!-- admin-interests.component.html -->
+<div class="container color-dark">
+  <div class="col">
+    <p>interests items</p>
+  </div>
+</div>
+
+<div class="container color-light">
+  <div class="col">
+    <form>
+      <input type="text" class="txt" name="description" placeholder="Interest description" [(ngModel)]="myInterests.description"><br>
+      <input type="submit" class="btn" value="{{ btnTxt }}" (click)="agregarInterests()">
+    </form>
+  </div>
+
+  <div class="col">
+    <div class="record-card" *ngFor="let interest of interests">
+      <h3>{{ interest.description }}</h3>
+
+      <div class="record-buttons">
+        <button (click)="updateInterests(interest.id)">Update</button>
+        <button (click)="deleteInterests(interest.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
