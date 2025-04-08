@@ -1,6 +1,5 @@
 name: CI/CD deploy admin-master
 on:
-
  # push:
 #   branches: [ "master"]
   pull_request:
