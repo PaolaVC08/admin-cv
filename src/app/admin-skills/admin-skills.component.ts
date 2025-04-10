@@ -16,6 +16,7 @@ export class AdminSkillsComponent {
 	goalText: string = "";
 	skills: Skills[] =[];
 	mySkill: Skills = new Skills();
+	errorMessage: string = "";
 
 	constructor(public skillsService: SkillsService)
 	{
@@ -32,14 +33,25 @@ export class AdminSkillsComponent {
 	      });
 	}
 
+	isValid(): boolean {
+	    return this.mySkill.skill !== undefined && this.mySkill.skill.trim().length > 0;
+	  }
 
 	agregarSkill() {
-	  if (this.selectedId) {
-	    // Modo actualizar
-	    this.skillsService.updateSkills(this.selectedId, this.mySkill).then(() => {
-	      console.log('Updated skill successfully!');
-	      this.resetForm();
-	    });
+	if (!this.isValid()) {
+	      this.errorMessage = 'Please fill out all fields.'; //llenar campos
+	      return;
+	    }
+
+	    this.errorMessage = ''; //limpia mensaje error
+
+	    if (this.selectedId) {
+	      if (confirm('Are you sure you want to update this skill?')) { //confirmación
+	        this.skillsService.updateSkills(this.selectedId, this.mySkill).then(() => {
+	          console.log('Updated skill successfully!');
+	          this.resetForm();
+	        });
+	      }
 	  } else {
 	    // Modo agregar
 	    this.skillsService.createSkills(this.mySkill).then(() => {
@@ -50,16 +62,18 @@ export class AdminSkillsComponent {
 	}
 
 	deleteSkill(id? :string){
+	 if (confirm('Are you sure you want to delete this skill?')) {
 	  this.skillsService.deleteSkills(id).then(()=>{
 	    console.log('delete item successfully!');
 	  });
 	   console.log(id);
+	 }
 	}
 	
 	updateSkill(id?: string) {
 	  const skillToEdit = this.skills.find(s => s.id === id);
  	   if (skillToEdit) {
-    	     this.mySkill = { ...skillToEdit }; // clona los datos al formulario
+    	     this.mySkill = { ...skillToEdit }; //clona datos al formulario
     		this.selectedId = id;
     		this.btnTxt = "Save";
  	 }
@@ -69,6 +83,7 @@ export class AdminSkillsComponent {
 	  this.mySkill = new Skills();
 	  this.selectedId = '';
 	  this.btnTxt = "Add";
+	  this.errorMessage = ''; //limpia error
 	}
 
 }

@@ -16,6 +16,7 @@
             <input type="text" class="txt" name="endDate" placeholder="end date (mm/yyyy)" [(ngModel)]="myEducation.endDate"><br>
             <input type="text" class="txt" name="name" placeholder="education title" [(ngModel)]="myEducation.name"><br>
             <input type="text" class="txt" name="school" placeholder="school name" [(ngModel)]="myEducation.school"><br>
+	    <p style="color: red">{{ errorMessage }}</p> <!-- llenar campos completos -->
             <input type="submit" class="btn" value="{{ btnTxt }}" (click)="agregarEducation()">
         </form>
     </div>

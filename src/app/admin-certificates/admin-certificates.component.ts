@@ -14,6 +14,7 @@ export class AdminCertificatesComponent {
    btnTxt: string = "Agregar";
    certificates: Certificates[] = [];
    myCertificates: Certificates = new Certificates();
+   errorMessage: string ='';
     constructor(public certificatesService: CertificatesService)
     {
         console.log(this.certificatesService);
@@ -28,14 +29,27 @@ export class AdminCertificatesComponent {
           console.log(this.certificates);
         });
     }
+	
+	isValid(): boolean {
+  const { title, year, description } = this.myCertificates;
+  return !!(title?.trim() && year?.trim() && description?.trim());
+}
+
 
     AgregarCertificates() {
+	    if (!this.isValid()) {
+      this.errorMessage = 'Please fill out all fields.';
+      return;
+    }
+
   if (this.selectedId) {
     // Modo actualizar
+if (confirm('Are you sure you want to update this certificate?')) {
     this.certificatesService.updateCertificates(this.selectedId, this.myCertificates).then(() => {
       console.log('Updated certificate successfully!');
       this.resetForm();
     });
+}
   } else {
     // Modo agregar
     this.certificatesService.createCertificates(this.myCertificates).then(() => {
@@ -47,11 +61,13 @@ export class AdminCertificatesComponent {
 
 
   deleteCertificates(id? :string){
+	  if (confirm('Are you sure you want to delete this certificate?')) {
+
     this.certificatesService.deleteCertificates(id).then(() => {
        console.log('Delete item successfully!');
     });
     console.log(id);
-  }
+  }}
 
   updateCertificates(id?: string) {
   const certToEdit = this.certificates.find(c => c.id === id);
@@ -65,6 +81,7 @@ resetForm() {
   this.myCertificates = new Certificates();
   this.selectedId = '';
   this.btnTxt = "Agregar";
+  this.errorMessage = '';
 }
 
 }
