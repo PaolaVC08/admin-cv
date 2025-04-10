@@ -13,6 +13,7 @@
 
         <form>
             <input type="text" class="txt" name="language" placeholder="language" [(ngModel)]="myLanguage.language"><br>
+	    <p style="color: red">{{ errorMessage }}</p> <!-- llenar campos completos -->
             <input type="submit" class="btn" value="{{ btnTxt }}" (click)="agregarLanguage()">
         </form>
     </div>
