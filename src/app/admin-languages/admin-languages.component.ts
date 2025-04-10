@@ -14,6 +14,7 @@ export class AdminLanguagesComponent {
   btnTxt: string ="Add";
   languages: Languages[] =[];
   myLanguage: Languages = new Languages();
+  errorMessage: string = '';
 
   constructor(public languagesService: LanguagesService)
   {
@@ -29,16 +30,26 @@ export class AdminLanguagesComponent {
 	       console.log(this.languages);
 	      });
         }
-
+  isValid(): boolean {
+    return this.myLanguage.language !== undefined && this.myLanguage.language.trim().length > 0;
+  }
   agregarLanguage() {
-  if (this.selectedId) {
-    // Modo actualizar
-    this.languagesService.updateLanguage(this.selectedId, this.myLanguage).then(() => {
-      console.log('Updated language successfully!');
-      this.resetForm();
-    });
+    if (!this.isValid()) {
+      this.errorMessage = 'Please fill out all fields.';
+      return;
+    }
+
+    this.errorMessage = '';
+//modificar 
+    if (this.selectedId) {
+      if (confirm('Are you sure you want to update this language?')) {
+        this.languagesService.updateLanguage(this.selectedId, this.myLanguage).then(() => {
+          console.log('Updated language successfully!');
+          this.resetForm();
+        });
+      }
   } else {
-    // Modo agregar
+    //agregar
     this.languagesService.createLanguage(this.myLanguage).then(() => {
       console.log('Created new language successfully!');
       this.resetForm();
@@ -48,10 +59,12 @@ export class AdminLanguagesComponent {
 
 
   deleteLanguage(id? :string){
+   if (confirm('Are you sure you want to delete this language?')) {
     this.languagesService.deleteLanguage(id).then(()=> {
       console.log('delete item successfully!');
     });
       console.log(id);
+   }
   }
   updateLanguage(id?: string) {
   const languageToEdit = this.languages.find(lang => lang.id === id);
@@ -66,6 +79,7 @@ resetForm() {
   this.myLanguage = new Languages();
   this.selectedId = '';
   this.btnTxt = "Add";
+  this.errorMessage = ''; //reset el mensaje 
 }
 
 

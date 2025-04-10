@@ -15,6 +15,7 @@ export class AdminEducationComponent {
   education: Education[] = [];
   selectedId?: string = '';
   myEducation: Education = new Education();
+  errorMessage: string = '';
 
   constructor(public educationService: EducationService)
         {
@@ -31,12 +32,26 @@ export class AdminEducationComponent {
               });
         }
 
+	  isValid(): boolean {
+    const { name, school, startDate, endDate } = this.myEducation;
+    return !!(name?.trim() && school?.trim() && startDate?.trim() && endDate?.trim());
+  }
+
 agregarEducation() {
+
+if (!this.isValid()) {
+      this.errorMessage = 'Please fill out all fields.';
+      return;
+    }
+
+
   if (this.selectedId) {
+    if (confirm('Are you sure you want to update this education?')) {
     this.educationService.updateEducation(this.selectedId, this.myEducation).then(() => {
       console.log('Updated education successfully!');
       this.resetForm();
     });
+    }
   } else {
     this.educationService.createEducation(this.myEducation).then(() => {
       console.log('Created new education successfully!');
@@ -46,11 +61,12 @@ agregarEducation() {
 }
 
   deleteEducation(id? :string){
+    if (confirm('Are you sure you want to delete this education?')) {
     this.educationService.deleteEducation(id).then(()=>{
       console.log('Delete item successfully!');
     });
     	console.log(id);
-  }
+  }}
 
   updateEducation(id?: string) {
   const eduToEdit = this.education.find(e => e.id === id);
@@ -64,6 +80,7 @@ resetForm() {
   this.myEducation = new Education();
   this.selectedId = '';
   this.btnTxt = "Agregar";
+  this.errorMessage = ''; //reset el mensaje 
 }
 
 }

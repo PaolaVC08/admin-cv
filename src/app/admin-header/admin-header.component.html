@@ -10,6 +10,7 @@
           <input type="text" class="txt" name="phoneNumber" placeholder="phone number" [(ngModel)]="myHeader.phoneNumber"><br>
           <input type="text" class="txt" name="location" placeholder="location" [(ngModel)]="myHeader.location"><br>
           <input type="text" class="txt" name="socialNetwork" placeholder="social network" [(ngModel)]="myHeader.socialNetwork"><br>
+	  <p style="color: red">{{ errorMessage }}</p> <!-- llenar campos completos -->
 		<input type="submit" class="btn" [disabled]="!canAddHeader && !selectedId" value="{{ btnTxt }}" (click)="agregarHeader()">
 
        </form>

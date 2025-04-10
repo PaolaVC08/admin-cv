@@ -18,7 +18,7 @@
             <input type="text" class="txt" name="position" placeholder="position" [(ngModel)]="myWorkExperience.position"><br>
             <input type="text" class="txt" name="company" placeholder="company" [(ngModel)]="myWorkExperience.company"><br>
             <input type="text" class="txt" name="accomplishment" placeholder="accomplishment" [(ngModel)]="myWorkExperience.accomplishment"><br>
-
+	<p style="color: red">{{ errorMessage }}</p> <!-- llenar campos completos -->
             <input type="submit" class="btn" value="{{ btnTxt }}" (click)="AgregarJob()">
         </form>
     </div>
