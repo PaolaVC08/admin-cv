@@ -15,6 +15,7 @@ export class AdminHeaderComponent {
   myHeader: Header = new Header();
   selectedId?: string = '';
   canAddHeader: boolean = true;
+  errorMessage: string = '';
 
   constructor(public headerService: HeaderService) {
     this.headerService.getHeader().snapshotChanges().pipe(
@@ -29,12 +30,25 @@ export class AdminHeaderComponent {
     });
   }
 
+  isValid(): boolean {
+    const { name, goalLife, photoURL, email, phoneNumber, location, socialNetwork } = this.myHeader;
+    return !!(name?.trim() && goalLife?.trim() && photoURL?.trim() && email?.trim() && phoneNumber?.trim() && location?.trim() && socialNetwork?.trim());
+  }
+
   agregarHeader() {
+
+if (!this.isValid()) {
+      this.errorMessage = 'Please fill out all fields.';
+      return;
+    }
+this.errorMessage = ''; 
+	if (confirm('Are you sure you want to update this header?')) {
     if (this.selectedId) {
       this.headerService.updateHeader(this.selectedId, this.myHeader).then(() => {
         console.log('Header updated successfully!');
         this.resetForm();
       });
+    }
     } else {
       this.headerService.createHeader(this.myHeader).then(() => {
         console.log('Created new header successfully!');
@@ -44,10 +58,11 @@ export class AdminHeaderComponent {
   }
 
   deleteHeader(id?: string) {
-    this.headerService.deleteHeader(id).then(() => {
+    if (confirm('Are you sure you want to delete this header?')) {
+	  this.headerService.deleteHeader(id).then(() => {
       console.log('Deleted header successfully!');
     });
-  }
+  }}
 
   updateHeader(id?: string) {
     const headerToEdit = this.header.find(h => h.id === id);
@@ -55,6 +70,7 @@ export class AdminHeaderComponent {
       this.myHeader = { ...headerToEdit };
       this.selectedId = id;
       this.btnTxt = "Save";
+      this.errorMessage = ''; //reset el mensaje
     }
   }
 
